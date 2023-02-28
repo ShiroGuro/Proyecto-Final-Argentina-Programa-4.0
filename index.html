@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Generador de Currículums</title>
+    <!-- links -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <lang="es">
+  </head>
+<body class="">
+   <!-- header -->
+  <header>
+    <h1>Generador de Usuarios Aleatorios.</h1>
+  </header>
+   <!-- conjunto de div en que se uica la placa del usuario-->
+    <main>
+  <div class="frame card_offset">
+    <div class="card">
+       <!-- imagen -->
+      <div  class="user_photo horizontal_center" id="ImgContainer">
+        <img src="">
+      </div>
+       <!-- botón -->
+        <div>
+          <button type="button" id="New" class="refresh">Nuevo</buttton>
+      </div>
+       <!-- datos escritos -->
+      <div id="details">
+      </div>
+    </div>
+      </div>
+       <!-- script que permite el cambio de datos-->
+      <script>
+let url = "https://randomuser.me/api/";
+
+ //escuchadores de eventos click y load con su función fuente
+        
+window.addEventListener("load", (event) => { fetchData('https://randomuser.me/api/')
+  .then(data =>generateInfo(data.results))});
+document.getElementById("New").addEventListener("click", (event) => {
+  fetchData('https://randomuser.me/api/')
+  .then(data =>generateInfo(data.results))});
+
+//función que llama los datos aleatorios
+        
+        function fetchData(url) {
+    return fetch(url)
+            .then(response => { return response.json()})
+            .catch(error => {console.log('Error with fetching API',               error)})}
+
+//función que alterna los datos viejos con los nuevos
+        
+        function generateInfo(results){
+                 results.forEach( userObj =>{
+      document.getElementById("ImgContainer").innerHTML = `<img src="${userObj.picture.large}" alt="Persona Aleatoria">`;
+      document.getElementById("details").innerHTML = `
+      <ul>
+        <li>Mi nombre es ${userObj.name.first} ${userObj.name.last}</li>
+        <li>Mi E-mail es ${userObj.email}</li>
+        <li>Mi dirección es ${userObj.location.city}, ${userObj.location.street.name} ${userObj.location.street.number}</li>
+        <li>Mi teléfono${userObj.phone}</li>
+        <li>Mi contraseña es ${userObj.login.password}</li>
+      </ul>`;
+})};
+      </script>
+      </main>
+  <!-- footer con información del creador -->
+  
+    <footer>
+      <div class="footer">
+        <div>
+        <p>Creado pr ShiroGuro.</p>
+      </div>
+      <div>
+        <p>Aleatorización por <span>randomuser.me/ap/</span></p>
+      </div>
+      <div>
+      <p>Esrito en <span>Replit.com/@ShiroGuro/RandomHumans</span></p>
+      </div>
+      </div>
+      </footer>
+  </body>
+</html>
